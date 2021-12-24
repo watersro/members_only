@@ -12,11 +12,39 @@
 
   <body>
     <% if flash[:notice] %>
-      <p class="notice"><%= notice %></p>
+      <p class="notice has-background-primary"><%= notice %></p>
     <% end %>
     <% if flash[:alert] %>
-      <p class="alert"><%= alert %></p>
+      <p class="alert has-background-danger"><%= alert %></p>
     <% end %>
+
+    <nav class="navbar is-info">
+      <div class="navbar-brand">
+      <%= link_to root_path, class: "navbar-item" do %>
+        <h1 class="title is-1">Members Only!</h1>
+      <% end %>
+      </div>
+        <div class="navbar-end">
+          <% if user_signed_in? %>
+          <p class="control is-flex">
+            <%= link_to current_user.name, edit_user_registration_path, class: "button is-info is-align-self-center" %>
+          </p>
+          <p class="control is-flex">
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-info is-align-self-center mr-5" %>
+          </p>
+        <% else %>
+          <p class="control is-flex">
+            <%= link_to 'Sign In', new_user_session_path, class: "button is-info is-align-self-center" %>
+          </p>
+          <p class="control is-flex">
+            <%= link_to 'Sign Up', new_user_registration_path, class: "button is-info is-align-self-center mr-5" %>
+          </p>
+        <% end %>
+        </div>
+      </div>
+    
+    </nav>
+    <br/>
     <%= yield %>
   </body>
 </html>

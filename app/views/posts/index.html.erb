@@ -1,28 +1,30 @@
-<h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Post</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.user.name %></td>
-        <br/>
-        <td><%= post.title %></td>
-        <td><%= post.post %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="box">
+        <h4 class="has-text-left is-size-3"><%= post.title %></h3>
+        <p class="has-text-justified is-size-5"><%= post.post %></p>
+        <% if user_signed_in? %>
+          <p class="has-text-right has-text-weight-bold is-italic mr-3"><%= post.user.name %></p>
+        <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <% if user_signed_in? %>
+    <div class="column is-one-third">
+      <article class="media box">
+        <figure class="media left">
+          <p class="image is-64x64">
+            <%= gravatar_image_tag(current_user.email, size: 64, alt: current_user.name) %>
+          </p>
+        </figure>
+        <div class="media-content">
+          <%= render 'posts/form-in-feed' %>
+        </div>
+      </article>
+    </div>
+  <% end %>
+</div>
 
-<br>
 
-<%= link_to 'New Post', new_post_path %>
+
