@@ -1,13 +1,27 @@
+<div class="section">
+  <div class="container">
+    <%= simple_form_for(@post) do |f| %>
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      
+      <div class="field">
+        <div class="control">
+        <%= f.input :title, wrapper: false, autofocus: true, input_html: { class: "input"}, label_html: {class: "label is-medium"}, placeholder: "Title", required: true %>
+        </div>
+      </div>
 
-<%= simple_form_for(@post) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <div class="field">
+        <div class="control">
+        <%= f.input :post, wrapper: false, input_html: { class: "textarea "}, placeholder: "Write your secret message!", required: true %>
+        </div>
+      </div>
 
-  <div class="form-inputs">
-    <%= f.input :post %>
+      <div class="field">
+        <div class="control">
+          <%= f.button :submit, class: "button is-info" %>
+        </div>
+      </div>
+  <% end %>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
